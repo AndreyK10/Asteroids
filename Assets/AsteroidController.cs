@@ -13,7 +13,8 @@ public class AsteroidController : MonoBehaviour
 
     private void OnEnable()
     {
-        Player.OnDestroyed += OnDestroyed;
+        Player.OnAsteroidTouched += OnAsteroidTouched;
+        Player.OnAsteroidDestroyed += OnAsteroidDestroyed;
     }
 
     public void InstantiateAsteroids(GameData gameData)
@@ -31,12 +32,17 @@ public class AsteroidController : MonoBehaviour
         }
     }
 
-    private void OnDestroyed(Asteroid asteroid)
+    private void ResetAsteroid(Asteroid asteroid)
     {
         asteroid.gameObject.SetActive(false);
         asteroid.transform.position = GetRandomPosition();
         asteroid.gameObject.SetActive(true);
-        asteroid.ResetAsteroidStatus();        
+        asteroid.ResetAsteroidStatus();
+    }
+
+    private void OnAsteroidTouched(Asteroid asteroid)
+    {
+        ResetAsteroid(asteroid);
     }
 
     private Vector2 GetRandomPosition()
@@ -44,9 +50,14 @@ public class AsteroidController : MonoBehaviour
         return new Vector2(Random.Range(-8f, 8f), Random.Range(-4f, 4f));
     }
 
+    private void OnAsteroidDestroyed(Asteroid asteroid)
+    {
+        ResetAsteroid(asteroid);
+    }
     private void OnDisable()
     {
-        Player.OnDestroyed -= OnDestroyed;
+        Player.OnAsteroidTouched -= OnAsteroidTouched;
+        Player.OnAsteroidDestroyed -= OnAsteroidDestroyed;
 
     }
 

@@ -3,23 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class Player : MonoBehaviour, IStayOnScreen, IMovable
+[RequireComponent(typeof(StayOnScreen))]
+public class Player : MonoBehaviour, IMovable
 {
-    private Vector2 _tempPosition;
-
     private float _playerSpeed;
     private float _playerKeyRotationSpeed;
     private float _playerAutoRotationSpeed;
 
     private float _horizontal;
 
-    public event Action<Asteroid> OnDestroyed;
+    public event Action<Asteroid> OnAsteroidTouched;
+    public event Action<Asteroid> OnAsteroidDestroyed;
+    
 
     private Camera _camera;
     private Vector2 _direction;
     private float _angle;
     private Quaternion _rotation;
 
+    [SerializeField] private ShipFlames ShipFlames;
+    [SerializeField] private Gun Gun;
+
+    private void OnEnable()
+    {
+        Gun.OnAsteroidShot += OnAsteroidShot;
+    }
+
+    private void OnAsteroidShot(Asteroid asteroid)
+    {
+        OnAsteroidDestroyed?.Invoke(asteroid);
+    }
 
     public void SetStats(GameData data)
     {
@@ -37,6 +50,11 @@ public class Player : MonoBehaviour, IStayOnScreen, IMovable
         if (Input.GetKey(KeyCode.W))
         {
             Move();
+            ShipFlames.EnableFlame();
+        }
+        else
+        {
+            ShipFlames.DisableFlame();
         }
 
         _horizontal = Input.GetAxisRaw("Horizontal");
@@ -44,39 +62,39 @@ public class Player : MonoBehaviour, IStayOnScreen, IMovable
 
         _direction = _camera.ScreenToWorldPoint(Input.mousePosition) - transform.position;
          
-        if (!(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) && _direction.magnitude > 0.5)
+        if (!(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) && _direction.magnitude > 0.8)
         {
             _angle = Mathf.Atan2(_direction.x, _direction.y) * Mathf.Rad2Deg;
             _rotation = Quaternion.AngleAxis(_angle, Vector3.back);
             transform.rotation = Quaternion.Slerp(transform.rotation, _rotation, _playerAutoRotationSpeed * Time.deltaTime);
         }
-    }
 
-    private void OnBecameInvisible()
-    {
-        StayOnScreen();
-    }
+        if (Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0))
+        {
+            Gun.Shoot();
+        }
 
-
-    public void StayOnScreen()
-    {
-        _tempPosition = transform.position;
-        _tempPosition *= -1;
-        transform.position = _tempPosition;
     }
 
     public void Move()
     {
         transform.Translate(Vector2.up * _playerSpeed * Time.deltaTime, Space.Self);
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.TryGetComponent(out Asteroid asteroid))
+        if (collision.gameObject.TryGetComponent(out Asteroid asteroid))
         {
             if (asteroid.IsDangerous == true)
             {
-                OnDestroyed?.Invoke(asteroid);
+                OnAsteroidTouched?.Invoke(asteroid);
             }
         }
+    }
+
+    private void OnDisable()
+    {
+        Gun.OnAsteroidShot -= OnAsteroidShot;
     }
 }

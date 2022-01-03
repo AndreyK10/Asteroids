@@ -4,10 +4,10 @@ using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(PolygonCollider2D))]
-public class Asteroid : MonoBehaviour, IStayOnScreen, IMovable
+[RequireComponent(typeof(StayOnScreen))]
+public class Asteroid : MonoBehaviour, IMovable
 {
     [SerializeField] private float _speed;
-    private Vector2 _tempPosition;
     [SerializeField] private bool _isDangerous = false;
     [SerializeField] private float _timeBeforeDangerous;
     public bool IsDangerous => _isDangerous;
@@ -25,20 +25,6 @@ public class Asteroid : MonoBehaviour, IStayOnScreen, IMovable
     {
         _speed = speed;
         _timeBeforeDangerous = timeBeforeDangerous;
-        //SetRotation();
-
-    }
-
-    public void StayOnScreen()
-    {
-        _tempPosition = transform.position;
-        _tempPosition *= -1;
-        transform.position = _tempPosition;
-    }
-
-    private void OnBecameInvisible()
-    {
-        StayOnScreen();
     }
 
     public void ResetAsteroidStatus()
