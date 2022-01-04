@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
@@ -16,26 +15,26 @@ public class Asteroid : MonoBehaviour, IMovable
     {
         StartCoroutine(ChangeStatus());
     }
-
-    private void Update()
-    {
-        Move();
-    }
     public void SetData(float speed, float timeBeforeDangerous)
     {
         _speed = speed;
         _timeBeforeDangerous = timeBeforeDangerous;
     }
 
-    public void ResetAsteroidStatus()
+    private void Update()
     {
-        SetRotation();
-        StartCoroutine(ChangeStatus());
+        Move();
     }
 
     public void Move()
     {
         transform.Translate(Vector2.up * _speed * Time.deltaTime, Space.Self);
+    }
+
+    public void ResetAsteroidStatus()
+    {
+        SetRotation();
+        StartCoroutine(ChangeStatus());
     }
 
     private void SetRotation()

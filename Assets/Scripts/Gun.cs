@@ -1,17 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
 
 public class Gun : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem _particleSystem;
 
+    [SerializeField] private ParticleSystem _particleSystem;
     private float _time;
     [SerializeField] private float _timeLimit;
 
     public event Action<Asteroid> OnAsteroidShot;
-
 
     public void Shoot()
     {
@@ -22,7 +19,6 @@ public class Gun : MonoBehaviour
             _particleSystem.Emit(1);
         }
     }
-
 
     private void OnParticleCollision(GameObject other)
     {

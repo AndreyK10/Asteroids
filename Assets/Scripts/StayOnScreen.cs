@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class StayOnScreen : MonoBehaviour
 {
     private Vector2 _tempPosition;
@@ -15,6 +14,4 @@ public class StayOnScreen : MonoBehaviour
     {
         StayOnGameScreen();
     }
-
-
 }

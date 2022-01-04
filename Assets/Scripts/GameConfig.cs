@@ -1,14 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable, CreateAssetMenu(fileName = "New Data", menuName = "Create New Data")]
-public class GameData : ScriptableObject
+[System.Serializable, CreateAssetMenu(fileName = "New Config", menuName = "Create New Config")]
+public class GameConfig : ScriptableObject
 {
     [Header("Player Stats")]
     [SerializeField] private float _playerSpeed;
     [SerializeField] private float _playerKeyRotationSpeed;
     [SerializeField] private float _playerAutoRotationSpeed;
+    [SerializeField] private float _playerHealth;
+    [SerializeField] private float _playerShields;
+
+    [Header("Asteroids")]
+    [SerializeField] private Asteroid[] _asteroidPrefabs;
 
     [Header("Min and Max Asteroid Speed")]
     [SerializeField] private float _minSpeed;
@@ -31,6 +34,9 @@ public class GameData : ScriptableObject
     public float PlayerSpeed => _playerSpeed;
     public float PlayerKeyRotationSpeed => _playerKeyRotationSpeed;
     public float PlayerAutoRotationSpeed => _playerAutoRotationSpeed;
+    public float PlayerHealth => _playerHealth;
+    public float PlayerShields => _playerShields;
+    public Asteroid[] AsteroidPrefabs => _asteroidPrefabs;
     public float MinSpeed => _minSpeed;
     public float MaxSpeed => _maxSpeed;
     public float MinSize => _minSize;

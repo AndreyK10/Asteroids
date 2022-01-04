@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e581cf80e57711d4f8230950eae60f9e, type: 3}
+  m_Name: GameConfig
+  m_EditorClassIdentifier: 
+  _playerSpeed: 5
+  _playerKeyRotationSpeed: 150
+  _playerAutoRotationSpeed: 50
+  _playerHealth: 1
+  _playerShields: 2
+  _asteroidPrefabs:
+  - {fileID: 3491561102108144746, guid: 9aa279559b751ae4cac351f392f395ee, type: 3}
+  - {fileID: 5473117909883223036, guid: b161b133431c4ba42b73eda8115da26d, type: 3}
+  - {fileID: 1725525722680936356, guid: e40f586b94b839743b95a268e99414ae, type: 3}
+  - {fileID: 1435193439148425864, guid: 0997b316c63067d4aaf07d2bbd28f01e, type: 3}
+  - {fileID: 3475829030490422105, guid: 3073dffe4f7ad7e448c14a5e60583bf4, type: 3}
+  - {fileID: 3603961623748519898, guid: f492d69e26954cc41a54eec66d402814, type: 3}
+  - {fileID: 5870325529167184883, guid: 2f9ff79e1bf0fb84592e24c9ea6c490e, type: 3}
+  - {fileID: 5373193917324239273, guid: 1b2c1a09c019cc24b9938706bb9b5dfd, type: 3}
+  _minSpeed: 5
+  _maxSpeed: 7
+  _minSize: 0.8
+  _maxSize: 2
+  _timeBeforeDangerous: 2
+  _poolSize: 8
+  _backgroundTile: {fileID: 21300000, guid: 4e18de17cdae40f4d80763cb686f9374, type: 3}

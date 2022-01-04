@@ -6,10 +6,10 @@ public class AsteroidController : MonoBehaviour
 {
     [SerializeField] private AsteroidCreator AsteroidCreator;
     [SerializeField] private Player Player;
+    [SerializeField] private ExplosionEffect ExplosionEffect;
 
     private Asteroid[] _pool;
     private Vector2 _tempPosition;
-
 
     private void OnEnable()
     {
@@ -17,9 +17,9 @@ public class AsteroidController : MonoBehaviour
         Player.OnAsteroidDestroyed += OnAsteroidDestroyed;
     }
 
-    public void InstantiateAsteroids(GameData gameData)
+    public void InstantiateAsteroids(GameConfig config)
     {
-        _pool = AsteroidCreator.CreatePool(gameData.PoolSize, gameData);
+        _pool = AsteroidCreator.CreatePool(config.PoolSize, config);
 
         foreach (var item in _pool)
         {
@@ -34,6 +34,7 @@ public class AsteroidController : MonoBehaviour
 
     private void ResetAsteroid(Asteroid asteroid)
     {
+        ExplosionEffect.Explode(asteroid.transform.position);
         asteroid.gameObject.SetActive(false);
         asteroid.transform.position = GetRandomPosition();
         asteroid.gameObject.SetActive(true);
@@ -44,16 +45,16 @@ public class AsteroidController : MonoBehaviour
     {
         ResetAsteroid(asteroid);
     }
+    private void OnAsteroidDestroyed(Asteroid asteroid)
+    {
+        ResetAsteroid(asteroid);
+    }
 
     private Vector2 GetRandomPosition()
     {
         return new Vector2(Random.Range(-8f, 8f), Random.Range(-4f, 4f));
     }
 
-    private void OnAsteroidDestroyed(Asteroid asteroid)
-    {
-        ResetAsteroid(asteroid);
-    }
     private void OnDisable()
     {
         Player.OnAsteroidTouched -= OnAsteroidTouched;

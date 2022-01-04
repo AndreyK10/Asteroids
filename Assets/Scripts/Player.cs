@@ -1,51 +1,46 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
 
 [RequireComponent(typeof(StayOnScreen))]
 public class Player : MonoBehaviour, IMovable
 {
-    private float _playerSpeed;
-    private float _playerKeyRotationSpeed;
-    private float _playerAutoRotationSpeed;
-
-    private float _horizontal;
-
-    public event Action<Asteroid> OnAsteroidTouched;
-    public event Action<Asteroid> OnAsteroidDestroyed;
-    
+    [SerializeField] private ShipFlames ShipFlames;
+    [SerializeField] private Gun Gun;
 
     private Camera _camera;
     private Vector2 _direction;
     private float _angle;
     private Quaternion _rotation;
 
-    [SerializeField] private ShipFlames ShipFlames;
-    [SerializeField] private Gun Gun;
+    private float _playerSpeed;
+    private float _playerKeyRotationSpeed;
+    private float _playerAutoRotationSpeed;
+    private float _playerHealth;
+    private float _playerShields;
+    private float _horizontal;
+
+    public event Action<Asteroid> OnAsteroidTouched;
+    public event Action<Asteroid> OnAsteroidDestroyed;
+    public event Action<float, float> OnStatsSet;
 
     private void OnEnable()
     {
         Gun.OnAsteroidShot += OnAsteroidShot;
     }
-
-    private void OnAsteroidShot(Asteroid asteroid)
-    {
-        OnAsteroidDestroyed?.Invoke(asteroid);
-    }
-
-    public void SetStats(GameData data)
-    {
-        _playerSpeed = data.PlayerSpeed;
-        _playerKeyRotationSpeed = data.PlayerKeyRotationSpeed;
-        _playerAutoRotationSpeed = data.PlayerAutoRotationSpeed;
-    }
-
     private void Awake()
     {
         _camera = Camera.main;
     }
-    void Update()
+    public void SetStats(GameConfig config)
+    {
+        _playerSpeed = config.PlayerSpeed;
+        _playerKeyRotationSpeed = config.PlayerKeyRotationSpeed;
+        _playerAutoRotationSpeed = config.PlayerAutoRotationSpeed;
+        _playerHealth = config.PlayerHealth;
+        _playerShields = config.PlayerShields;
+        OnStatsSet?.Invoke(_playerHealth, _playerShields);
+    }
+    private void Update()
     {
         if (Input.GetKey(KeyCode.W))
         {
@@ -73,14 +68,20 @@ public class Player : MonoBehaviour, IMovable
         {
             Gun.Shoot();
         }
-
     }
-
     public void Move()
     {
         transform.Translate(Vector2.up * _playerSpeed * Time.deltaTime, Space.Self);
     }
+    public void HidePlayer()
+    {
+        gameObject.SetActive(false);
+    }
 
+    private void OnAsteroidShot(Asteroid asteroid)
+    {
+        OnAsteroidDestroyed?.Invoke(asteroid);
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
