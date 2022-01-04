@@ -5041,7 +5041,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.022774696, g: 0, b: 1, a: 1}
+      maxColor: {r: 0, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -9652,6 +9652,7 @@ GameObject:
   - component: {fileID: 3569169801052781934}
   - component: {fileID: 5347124491985864788}
   - component: {fileID: 3524826889400764138}
+  - component: {fileID: 595811505}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -9738,8 +9739,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 479166259385c914d9509ab82b74729d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShipFlames: {fileID: 1486458126}
   Gun: {fileID: 1572374402}
+  PlayerMovement: {fileID: 595811505}
 --- !u!50 &3569169801052781934
 Rigidbody2D:
   serializedVersion: 4
@@ -9820,3 +9821,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b64689d24b6ad3949af3f9e78a9fba1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &595811505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4721782665266602267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deb74bc78a699eb4ca09b351a571f904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShipFlames: {fileID: 1486458126}
