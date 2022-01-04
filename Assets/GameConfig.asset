@@ -26,10 +26,10 @@ MonoBehaviour:
   - {fileID: 3603961623748519898, guid: f492d69e26954cc41a54eec66d402814, type: 3}
   - {fileID: 5870325529167184883, guid: 2f9ff79e1bf0fb84592e24c9ea6c490e, type: 3}
   - {fileID: 5373193917324239273, guid: 1b2c1a09c019cc24b9938706bb9b5dfd, type: 3}
-  _minSpeed: 5
-  _maxSpeed: 7
+  _minSpeed: 4
+  _maxSpeed: 6
   _minSize: 0.8
   _maxSize: 2
   _timeBeforeDangerous: 2
-  _poolSize: 8
+  _poolSize: 7
   _backgroundTile: {fileID: 21300000, guid: 4e18de17cdae40f4d80763cb686f9374, type: 3}
