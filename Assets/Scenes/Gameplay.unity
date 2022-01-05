@@ -7559,6 +7559,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1572374401, guid: c4d79e4164f8249429eb334af7c2f56f, type: 3}
+      propertyPath: InheritVelocityModule.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1572374401, guid: c4d79e4164f8249429eb334af7c2f56f, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1572374401, guid: c4d79e4164f8249429eb334af7c2f56f, type: 3}
+      propertyPath: InheritVelocityModule.m_Curve.scalar
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1906782446534589417, guid: c4d79e4164f8249429eb334af7c2f56f, type: 3}
       propertyPath: m_RootOrder
       value: 3

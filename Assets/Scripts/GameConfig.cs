@@ -4,24 +4,34 @@ using UnityEngine;
 public class GameConfig : ScriptableObject
 {
     [Header("Player Stats")]
+    [Min(1)]
     [SerializeField] private float _playerSpeed;
+    [Min(1)]
     [SerializeField] private float _playerKeyRotationSpeed;
+    [Min(1)]
     [SerializeField] private float _playerAutoRotationSpeed;
+    [Min(1)]
     [SerializeField] private float _playerHealth;
+    [Min(0)]
     [SerializeField] private float _playerShields;
 
     [Header("Asteroids")]
     [SerializeField] private Asteroid[] _asteroidPrefabs;
 
     [Header("Min and Max Asteroid Speed")]
+    [Min(0)]
     [SerializeField] private float _minSpeed;
+    [Min(0)]
     [SerializeField] private float _maxSpeed;
 
     [Header("Min and Max Asteroid Size")]
+    [Min(0.1f)]
     [SerializeField] private float _minSize;
+    [Min(0.1f)]
     [SerializeField] private float _maxSize;
 
     [Header("Time Before Asteroid Dangerous")]
+    [Min(0)]
     [SerializeField] private float _timeBeforeDangerous;
 
     [Header("Asteroid Pool Size")]
