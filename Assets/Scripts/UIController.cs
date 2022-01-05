@@ -10,6 +10,7 @@ public class UIController : MonoBehaviour
 
     [SerializeField] private Image[] _backgroundTiles;
     [SerializeField] private Image _shieldImage;
+    [SerializeField] private Image _destroyedShipImage;
 
     [SerializeField] private TextMeshProUGUI _scoreText;
 
@@ -41,6 +42,7 @@ private void OnGameStateChanged(GameState gameState)
                 break;
 
             case GameState.EndScreen:
+                DisplayDestroyedShipImage();
                 DisplayButtons(playButton: false, restartButton: true, closeButton: true);
                 break;
 
@@ -85,6 +87,11 @@ private void OnGameStateChanged(GameState gameState)
     {
         _shieldImage.fillAmount = _currentShieldsNumber / _initialShieldsNumber;
     }   
+
+    private void DisplayDestroyedShipImage()
+    {
+        _destroyedShipImage.gameObject.SetActive(true);
+    }
 
     private void DisplayButtons(bool playButton, bool restartButton, bool closeButton)
     {
